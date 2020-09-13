@@ -10,6 +10,20 @@
   <meta name="description" content="Slack exercise">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <style>
+    /* Override some unwanted default settings */
+    /* Borderless page. Looks better in most cases */
+    html {
+      margin: 0;
+    }
+    /* Remove default spacing from paragraphs */
+    p {
+      margin: 0;
+    }
+    /* Turn of special handling of links that go nowhere */
+    a[href="#"], a[href="#"]:hover, a[href="#"]:active, a[href="#"]:visited {
+      color: inherit;
+      text-decoration: none;
+    }
     /* ==========================================================================
        Author's custom styles
        ========================================================================== */
@@ -37,7 +51,6 @@
       padding: 15px 25px;
       width: calc(100% - 50px);
     }
-
     /**
      * =============
      * NAV
@@ -70,12 +83,6 @@
       padding-left: 0;
     }
 
-    @media (min-width: 1085px) {
-      .nav {
-        display: flex;
-      }
-    }
-
     ul {
       list-style: none;
     }
@@ -97,6 +104,12 @@
     /* Dropdown menus */
     /* Sidebar menu */
     /* This is the background Slack is using: https://s3-us-west-2.amazonaws.com/s.cdpn.io/2522641/sidebar-background.png */
+
+    @media (min-width: 1085px) {
+      .nav {
+        display: flex;
+      }
+    }
 
 
     /* ==========================================================================
@@ -186,7 +199,7 @@
     <div class="nav-right">
       <p class="workspaces">Your Workspaces</p>
       <div class="hamburger-menu" id="menu-trigger">
-        <img src="img/hamburger.svg" alt="Hamburger icon">
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2522641/hamburger.svg" alt="Hamburger icon">
       </div>
     </div>
   </header>
@@ -201,5 +214,18 @@
   <!--
 
   <!--Dropdown Menus also go here, but why? They are absolutely positioned, so it doesnt matter where they are in the DOM if you remember.... -->
+  <!--
+        WRONG!  ...  WRONG!  ... Bad habit to get into!
+
+        It does matter where they go in the DOM, absolute or not.
+        Screen readers do much better with a properly laid out DOM than with one
+        that has elements repositioned way out of their normal flow.
+        For things which are visually useful and can be ignored by screenreaders
+        with aria-ignore="true" set, it doesn't matter.
+        Navigation menus just seem to be too important for such an exception.
+        
+        See https://stackoverflow.com/a/52334370/7412956
+          "Affects of Absolute Positioning on Voice Activation Software"
+  -->
 </body>
 </html>
