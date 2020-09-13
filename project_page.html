@@ -10,6 +10,11 @@
   <meta name="description" content="Slack exercise">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <style>
+    /* FOUC-fix part-1, hide the body until it's completly loaded and, hopefully, styled */
+    html {
+      opacity: 0;
+      transition: all .5s linear;
+    }
     /* Set variables to hold potentially changable values for the page */
     :root {
       --button-fgColor: white;
@@ -138,8 +143,6 @@
       top: 0;
       bottom: 0;
       box-sizing: border-box;
-      width: 100%;
-      height: 100vh;
       display: flex;
       flex-direction: column;
       padding-top: 25px;
@@ -147,7 +150,7 @@
       background-image: var(--mobileMenu-bgImage);
       background-size: cover;
       background-color: var(--mobileMenu-bgColor);
-    /*  transform: translateX(100%); */
+/*      transform: translateX(100%); */
     }
     #mobile-menu header {
       padding: 0 25px 25px 25px;
@@ -333,5 +336,11 @@
         See https://stackoverflow.com/a/52334370/7412956
           "Affects of Absolute Positioning on Voice Activation Software"
   -->
+  <!-- FOUC-fix, part 2, quick fade-in of the, hopefully, rendered and styled content -->
+  <style>
+    html {
+      opacity: 1;
+    }
+  </style>
 </body>
 </html>
