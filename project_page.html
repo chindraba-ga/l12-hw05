@@ -17,6 +17,10 @@
       --button-bgColorHover: #4a154b;
       --button-borderRadius: 4px;
       --hamburgerColor: #454545;
+      --mobileMenu-fgColor: white;
+      --mobileMenu-bgColor: var(--button-bgColor);
+      --mobileMenu-bgImage: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2522641/sidebar-background.png");
+      --mobileMenu-borderColor: rgba(250,250,250,.1);
     }
     /* Override some unwanted default settings */
     /* Borderless page. Looks better in most cases */
@@ -49,7 +53,7 @@
     /**
       * Notice how you have to put a width on fixed elements
       * They aren't by default width: 100% when they are block level elements
-      */
+      **/
     .global-header {
       background-color: white;
       display: flex;
@@ -128,9 +132,28 @@
       fill: var(--hamburgerColor);
     }
     #mobile-menu {
-      position: relative;
-      width: calc(100vw - 50px);
-      transform: translateX(100%);
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-top: 25px;
+      color: var(--mobileMenu-fgColor);
+      background-image: var(--mobileMenu-bgImage);
+      background-size: cover;
+      background-color: var(--mobileMenu-bgColor);
+    /*  transform: translateX(100%); */
+    }
+    #mobile-menu header {
+      padding: 0 25px 25px 25px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--mobileMenu-borderColor);
     }
 
     /* Dropdown menus */
