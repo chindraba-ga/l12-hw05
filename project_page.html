@@ -92,6 +92,9 @@
       margin: 0 20px;
       cursor: pointer;
     }
+    .drop-nav {
+      display: none;
+    }
 
     .nav-right {
       align-items: center;
@@ -99,7 +102,18 @@
       justify-content: flex-end;
       margin-right: 45px;
     }
-
+    .workspaces {
+      display: none;
+    }
+    #menu-trigger {
+      width: 27px;
+      height: 17px;
+    }
+    #mobile-menu {
+      position: relative;
+      width: calc(100vw - 50px);
+      transform: translateX(100%);
+    }
 
     /* Dropdown menus */
     /* Sidebar menu */
@@ -108,6 +122,12 @@
     @media (min-width: 1085px) {
       .nav {
         display: flex;
+      }
+      .workspaces {
+        display: block;
+      }
+      #menu-trigger {
+        display: none;
       }
     }
 
