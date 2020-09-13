@@ -10,6 +10,13 @@
   <meta name="description" content="Slack exercise">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <style>
+    /* Set variables to hold potentially changable values for the page */
+    :root {
+      --button-fgColor: white;
+      --button-bgColor: #611f69;
+      --button-bgColorHover: #4a154b;
+      --button-borderRadius: 4px;
+    }
     /* Override some unwanted default settings */
     /* Borderless page. Looks better in most cases */
     html {
@@ -104,6 +111,13 @@
     }
     .workspaces {
       display: none;
+      padding: 12px 16px;
+      border-radius: var(--button-borderRadius);
+      color: var(--button-fgColor);
+      background-color: var(--button-bgColor);
+    }
+    .workspaces:hover {
+      background-color: var(--button-bgColorHover);
     }
     #menu-trigger {
       width: 27px;
