@@ -22,6 +22,10 @@
       --button-bgColorHover: #4a154b;
       --button-borderRadius: 4px;
       --hamburgerColor: #454545;
+      --nav-fgColor: #1d1d1d;
+      --nav-fgColorHover: #1264a3;
+      --nav-bgColor: white;
+      --nav-bgColorHover: #f2f2f2;
       --mobileMenu-fgColor: white;
       --mobileMenu-bgColor: var(--button-bgColor);
       --mobileMenu-bgImage: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2522641/sidebar-background.png");
@@ -64,8 +68,9 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      height: 40px;
-      padding: 15px 25px;
+      align-items: center;
+      height: 60px;
+      padding: 5px 25px;
       width: calc(100% - 50px);
     }
     /**
@@ -110,13 +115,42 @@
     }
 
     /* Dropdown menus */
-    .nav li {
+    .nav > li {
       font-size: 14px;
+      padding: 15px 0;
       margin: 0 20px;
       cursor: pointer;
     }
     .drop-nav {
       display: none;
+      position: absolute;
+      top: 60px;
+      padding: 10px;
+      background-color: white;
+      box-shadow: 0 0 35px rgba(0,0,0,.2);
+    }
+    .drop-nav div {
+      padding: 0 10px 8px;
+      text-transform: uppercase;
+    }
+    .drop-nav li {
+      display: block;
+      padding: 10px 0;
+      color: var(--nav-fgColor);
+      background-color: var(--nav-bgColor);
+    }
+    .drop-nav li:hover {
+      color: var(--nav-fgColorHover);
+      background-color: var(--nav-bgColorHover);
+    }
+    .drop-nav a {
+      padding: 10px;
+    }
+    #menu-2, #menu-3 {
+      width: 400px;
+    }
+    #menu-2 ul, #menu-3 ul {
+      column-count: 2;
     }
 
     .nav-right {
@@ -128,6 +162,7 @@
     .workspaces {
       display: none;
       padding: 12px 16px;
+      cursor: pointer;
       border-radius: var(--button-borderRadius);
       color: var(--button-fgColor);
       background-color: var(--button-bgColor);
@@ -140,6 +175,7 @@
     #menu-trigger {
       width: 27px;
       height: 17px;
+      cursor: pointer;
     }
     #menu-trigger svg {
       fill: var(--hamburgerColor);
