@@ -194,7 +194,17 @@
       background-image: var(--mobileMenu-bgImage);
       background-size: cover;
       background-color: var(--mobileMenu-bgColor);
-     transform: translateX(100%);
+      transform: translateX(100%);
+    }
+    /* This selector has to include both the id and class to work.
+     * The selector above uses an id, and the JS uses a class. The rules of CSS are that
+     * an id selector is stronger than an class selector, so this would be ignored.
+     * The other fix would be to use  '[id="mobile-menu"]' as the rule selector above,
+     * giving it the same weight as a class-based selector, so that a simple class here
+     * would be sufficient.
+     **/
+    #mobile-menu.mobile-open {
+      transform: translateX(0);
     }
     #mobile-menu header {
       padding: 0 25px 25px 25px;
@@ -235,6 +245,16 @@
       }
     }
 
+    /*
+     * The CSS version of control over the drop-down menu
+     * Notice that the style declartion for the menu block needs no change from
+     * that used for either JS version of the control. 
+     * if the entire system was CSS-based this selector would be much plainer:
+     *  '.nav > li:hover .drop-nav'
+     **/
+    [id="menu-3-button"]:hover [id="menu-3"] {
+      display: block;
+    }
 
     /* ==========================================================================
        Helper classes
@@ -396,6 +416,91 @@
         See https://stackoverflow.com/a/52334370/7412956
           "Affects of Absolute Positioning on Voice Activation Software"
   -->
+  <script>
+// Think about application structure a bit, very similar to traffic light exercise we did
+
+/**
+ * SIDE MENU
+ * If somebody clicks on the menu icon, let the fireworks begin...
+ * We're listening to the 'menu-trigger' ID for some action, then we fire 'sideMenuAppears'
+ * Likewise, we're listening to the 'menu-close' ID for a click, then we fire 'sideMenuDisappears' when that happens
+ * Make it happen!
+ */
+
+/* When you click menu close, it puts the hide-menu class onto #side-menu, reversing what just happened, make it happen! */
+
+    /* Solution, based on adding/removing class name to a menu, for the mobile menu */
+    function mobileMenuClose() {
+      mobileMenu.classList.remove("mobile-open");
+    }
+    function mobileMenuOpen() {
+      mobileMenu.classList.add("mobile-open");
+    }
+    const mobileMenu = document.getElementById("mobile-menu");
+    document.getElementById("menu-close").addEventListener("click", mobileMenuClose);
+    document.getElementById("menu-trigger").addEventListener("click", mobileMenuOpen, true);
+    
+
+
+    /* System build around the idea popping the menu into and out of the DOM 
+       Uses an Object-Oriented approach to the design */
+
+    /* Remove the // comments from  the lines for menu2 and menu3, and add comments
+     * to the menuSolutions line in the next group to give this method complete control
+     * ALSO requires removing the CSS declaration for [id=menu-3-button]:hover [id=menu-3] {
+     **/
+    function menuDrop() {
+      if ( null != this.menu.parentElement ) {
+        this.parent.removeChild(this.menu);
+      }
+    }
+    function menuAdd() {
+      if ( null == this.menu.parentElement ) {
+        this.parent.appendChild(this.menu);
+      }
+      return true;
+    }
+    function PoppableMenu( menuName, menuParent ) {
+      this.parent = document.getElementById(menuParent);
+      this.menu   = document.getElementById(menuName);
+      this.add    = menuAdd.bind(this);
+      this.drop   = menuDrop.bind(this);
+      this.menu.parentElement.removeChild(this.menu);
+      this.parent.addEventListener("mouseenter", this.add);
+      this.parent.addEventListener("mouseleave", this.drop);
+      /* Override the display: none in the CSS.              */
+      /* Otherwise, when attached, it will still be unshown. */
+      this.menu.style.display = "block";
+    }
+    const menu1 = new PoppableMenu( "menu-1", "menu-1-button" );
+    // const menu2 = new PoppableMenu( "menu-2", "menu-2-button" );
+    // const menu3 = new PoppableMenu( "menu-3", "menu-3-button" );
+
+
+
+    /* System build around the idea of changing the display property between block and none; */
+
+    /* To give this version complete control over the menus remove the // comments from the lines 
+     * below for menuWhy and menuResources, while adding // comments to the menu1 line above.
+     * ALSO requires removing the CSS declaration for [id=menu-3-button]:hover [id=menu-3] {
+     **/
+    function menuHide() {
+      this.style.display = 'none';
+    }
+    function menuShow() {
+      this.style.display = 'block';
+    }
+    function menuAttach( menuName ) {
+      let elem = document.getElementById(menuName);
+      elem.parentElement.addEventListener("mouseenter", menuShow.bind(elem));
+      elem.parentElement.addEventListener("mouseleave", menuHide.bind(elem));
+      elem.style.display = 'none';
+      return elem;
+    }
+    // const menuWhy       = menuAttach("menu-1");
+    const menuSolutions = menuAttach("menu-2");
+    // const menuResources = menuAttach("menu-3");
+  </script>
   <!-- FOUC-fix, part 2, quick fade-in of the, hopefully, rendered and styled content -->
   <style>
     html {
