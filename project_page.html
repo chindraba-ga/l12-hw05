@@ -102,7 +102,7 @@
       flex-direction: row;
       align-items: center;
       margin: 0;
-      padding-left: 0;
+      padding: 5px 0;
     }
 
     ul {
@@ -117,8 +117,10 @@
     /* Dropdown menus */
     .nav > li {
       font-size: 14px;
-      padding: 15px 0;
+      padding: 20px 0;
       margin: 0 20px;
+    }
+    .nav > li > span {
       cursor: pointer;
     }
     .drop-nav {
@@ -131,7 +133,9 @@
     }
     .drop-nav div {
       padding: 0 10px 8px;
+      font-size: 12px;
       text-transform: uppercase;
+      cursor: default;
     }
     .drop-nav li {
       display: block;
@@ -250,9 +254,9 @@
      * Notice that the style declartion for the menu block needs no change from
      * that used for either JS version of the control. 
      * if the entire system was CSS-based this selector would be much plainer:
-     *  '.nav > li:hover .drop-nav'
+     *  '.nav > li > span:hover ~ .drop-nav'
      **/
-    [id="menu-3-button"]:hover [id="menu-3"] {
+    [id="menu-3-button"] > span:hover ~ [id="menu-3"] {
       display: block;
     }
 
@@ -334,7 +338,7 @@
         </svg>
       </div>
       <ul class="nav">
-        <li id="menu-1-button">Why Slack?
+        <li id="menu-1-button"><span>Why Slack?</span>
           <nav id="menu-1" class="drop-nav">
             <div>About the product</div>
             <ul>
@@ -345,7 +349,7 @@
             </ul>
           </nav>
         </li>
-        <li id="menu-2-button">Solutions
+        <li id="menu-2-button"><span>Solutions</span>
           <nav id="menu-2" class="drop-nav">
             <div>Slack for every team</div>
             <ul>
@@ -359,7 +363,7 @@
             </ul>
           </nav>
         </li>
-        <li id="menu-3-button">Resources
+        <li id="menu-3-button"><span>Resources</span>
           <nav id="menu-3" class="drop-nav">
             <div>Go further with Slack</div>
             <ul>
@@ -372,7 +376,7 @@
             </ul>
           </nav>
         </li>
-        <li>Pricing</li>
+        <li><span>Pricing</span></li>
       </ul>
     </section>
     <div class="nav-right">
@@ -399,7 +403,100 @@
   </header>
 
   <!--Main content-->
-  <section class="placeholder"></section>
+  <section class="placeholder">
+    <style>
+      .placeholder {
+        margin: 15px;
+        padding: 10px;
+        line-height: 1.4;
+        color: linen;
+        background-color: rgba(0,0,100,.85);
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: auto;
+      }
+      .placeholder header {
+        text-align: center;
+        font-size: 24px;
+      }
+      .placeholder main{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+      }
+      .placeholder section {
+        min-width: 40vw;
+        flex: 1 1 0;
+      }
+      @media (min-width: 700px) {
+        .placeholder section {
+          column-count: 2;
+        }
+      }
+      .placeholder a {
+        color: gold;
+      }
+      hr {
+        height: 2px;
+        width: 85%;
+        color: linen;
+        margin: 10px;
+        background-color: ivory;
+        box-shadow: 0 0 35px yellow;
+      }
+      .placeholder ol {
+        list-style: roman;
+      }
+      .placeholder li {
+        display: block;
+      }
+      .placeholder li::before {
+        color: gold;
+      }
+      .placeholder a img {
+        width: 45%;
+        height: auto;
+      }
+    </style>
+    <header>Random nit-picking</header>
+    <main>
+      <hr>
+      <section>
+        <h2>Drop-dowm menu DOM placement dispute</h2>
+        <p>The starter code included the comment near the end of the DOM:</p>
+        <blockquote>Dropdown Menus also go here, but why? They are absolutely positioned, so it doesnt matter where they are in the DOM if you remember....</blockquote>
+        <p>From a technical point of view, using the power of JavaScrip, they can be visually placed anywhere on, or off, the screen. Accessability concerns, however, change that view. Screen readers process the DOM tree in order, as presented in the DOM, with no regard to visual placement. There are flags to help the reader know that the content might change, for whatever reason, but none to inform them of random, absolutely positioned elements outside the DOM flow. Moving elements around results in them being read out of order, and causing much confusion for the visually impaired users.</p>
+        <p>For more information see <a href="https://stackoverflow.com/a/52334370/7412956">Affects of Absolute Positioning on Voice Activation Software</a>, and the links from that discussion.</p>
+      </section>
+      <hr>
+      <section>
+        <h2>Bug in Homework 5 - Solution</h2>
+        <p>It is possible to activate one of the drop-down menus and then enter the 'body' of the page with the menu still hanging.<p>
+        <a href="https://www.chindraba.work/fewd/img/slack-solution-bug-window.png"><img src="https://www.chindraba.work/fewd/img/slack-solution-bug-window.png" alt="full window view of the bug results"></a>
+        <a href="https://www.chindraba.work/fewd/img/slack-solution-bug-section.png"><img src="https://www.chindraba.work/fewd/img/slack-solution-bug-section.png" alt="full window view of the bug results"></a>
+        <h3>Steps to reproduce:</h3>
+        <ol>Variation 1:
+          <li>Move the cursor over one of the three menu triggers</li>
+          <li>Without entering the drop-down box, move the cursor up until it changes from a link pointer</li>
+          <li>Move the cursor left, or right, passed the buttons and back down into the main body</li>
+        </ol>
+        <ol>Variation 2:
+          <li>Move the cursor over either the first button, "Why Slack?", or the last button, "Resources"</li>
+          <li>Without entering the drop-down box, move the cursor left, or right, away from the buttons</li>
+          <li>Move the cursor down, and around the drop-down box if necessary, into the main body</li>
+        </ol>
+        <ol>Variation 3 (slightly more difficult):
+          <li>Move the cursor over one of the three menu triggers</li>
+          <li>Without entering the drop-down box, move the cursor down, between the trigger and its drop-down box, until it changes to a default pointer (probably an arrow)</li>
+          <li>Move the cursor left, or right, passed the box and back down into the main body</li>
+        </ol>
+      </section>
+    </main>
+
+  </section>
 
 
   <!--Dropdown Menus also go here, but why? They are absolutely positioned, so it doesnt matter where they are in the DOM if you remember.... -->
@@ -466,7 +563,7 @@
       this.add    = menuAdd.bind(this);
       this.drop   = menuDrop.bind(this);
       this.menu.parentElement.removeChild(this.menu);
-      this.parent.addEventListener("mouseenter", this.add);
+      this.parent.firstElementChild.addEventListener("mouseenter", this.add);
       this.parent.addEventListener("mouseleave", this.drop);
       /* Override the display: none in the CSS.              */
       /* Otherwise, when attached, it will still be unshown. */
@@ -492,7 +589,7 @@
     }
     function menuAttach( menuName ) {
       let elem = document.getElementById(menuName);
-      elem.parentElement.addEventListener("mouseenter", menuShow.bind(elem));
+      elem.parentElement.firstElementChild.addEventListener("mouseenter", menuShow.bind(elem));
       elem.parentElement.addEventListener("mouseleave", menuHide.bind(elem));
       elem.style.display = 'none';
       return elem;

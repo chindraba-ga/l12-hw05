@@ -1,6 +1,6 @@
 # l12-hw05
 
--  Status: In Progress
+-  Status: Submitted
 -  CodePen: <https://codepen.io/chindraba-ga/pen/eYZrOJv>
 -  Live page: <https://www.chindraba.work/fewd/l12-hw05.html>
 
