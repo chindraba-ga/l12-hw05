@@ -1,7 +1,7 @@
 l12-hw05
 * Status: Final
 * CodePen: <https://codepen.io/chindraba-ga/pen/eYZrOJv>
-* Live page: <https://www.chindraba.work/fewd/l12-hw05.html>
+* Live page: <https://fewd.chindraba.work/lessons/l12-hw05/index.html>
 
 Contents
 ================================================================================
